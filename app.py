@@ -57,11 +57,18 @@ class DisplayChart(webapp2.RequestHandler):
     template_data = {}
     template_path = 'Templates/displayChart.html'
     self.response.out.write(template.render(template_path,template_data))
+
+class DisplayChart3(webapp2.RequestHandler):
+  def get(self):
+    template_data = {}
+    template_path = 'Templates/displayChart_3.html'
+    self.response.out.write(template.render(template_path,template_data))
     
 
 application = webapp2.WSGIApplication([
     ('/chart',ShowChartPage),
     ('/displayChart',DisplayChart),
+    ('/displayChart3',DisplayChart3),
     ('/getChartData',GetChartData),
     ('/', ShowHome),
 ], debug=True)

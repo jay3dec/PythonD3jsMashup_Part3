@@ -33,7 +33,7 @@ class GetChartData(webapp2.RequestHandler):
   def get(self):
     inputData = self.request.get("inputData")
     queryData = {'query':'SELECT SUM(word_count) as WCount,corpus_date,group_concat(corpus) as Work FROM '
-'[publicdata:samples.shakespeare] WHERE word="'+inputData+'" GROUP BY corpus_date'}
+'[publicdata:samples.shakespeare] WHERE word="'+inputData+'" GROUP BY corpus_date ORDER BY WCount'}
     tableData = bigquery_service.jobs()
     dataList = tableData.query(projectId=PROJECT_NUMBER,body=queryData).execute()
     
@@ -56,6 +56,12 @@ class DisplayChart(webapp2.RequestHandler):
   def get(self):
     template_data = {}
     template_path = 'Templates/displayChart.html'
+    self.response.out.write(template.render(template_path,template_data))
+
+class DisplayChart3(webapp2.RequestHandler):
+  def get(self):
+    template_data = {}
+    template_path = 'Templates/displayChart_3.html'
     self.response.out.write(template.render(template_path,template_data))
     
 
