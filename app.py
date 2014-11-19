@@ -33,7 +33,7 @@ class GetChartData(webapp2.RequestHandler):
   def get(self):
     inputData = self.request.get("inputData")
     queryData = {'query':'SELECT SUM(word_count) as WCount,corpus_date,group_concat(corpus) as Work FROM '
-'[publicdata:samples.shakespeare] WHERE word="'+inputData+'" GROUP BY corpus_date ORDER BY WCount'}
+'[publicdata:samples.shakespeare] WHERE word="'+inputData+'" and corpus_date>0 GROUP BY corpus_date ORDER BY WCount'}
     tableData = bigquery_service.jobs()
     dataList = tableData.query(projectId=PROJECT_NUMBER,body=queryData).execute()
     
